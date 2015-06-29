@@ -19,7 +19,7 @@ module Guess
         ["female", 1 - p_male]
       else
         if middle = People::NameParser.new.parse(name)[:middle]
-          # try the middle name if the first one fails
+          # try the middle name if the first one fails.
           Guess.gender(middle)
         else
           ["unknown", nil]
