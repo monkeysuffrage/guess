@@ -1,4 +1,5 @@
 require "guess/version"
+require "people"
 
 module Guess
   class << self
@@ -17,10 +18,17 @@ module Guess
       elsif freq_female > freq_male
         ["female", 1 - p_male]
       else
-        ["unknown", nil]
+        if middle = People::NameParser.new.parse(name)[:middle]
+          # try the middle name if the first one fails
+          Guess.gender(middle)
+        else
+          ["unknown", nil]
+        end
       end
       {:gender => gender, :confidence => confidence}
     end
+  end
+end
 
     def parse_file(name)
       dist = Hash.new(0.0005)
