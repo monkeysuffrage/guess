@@ -21,7 +21,7 @@ module Guess
         middle = People::NameParser.new.parse(name)[:middle]
         unless middle.empty?
           # try the middle name if the first one fails.
-          Guess.gender(middle)
+          return Guess.gender(middle)
         else
           ["unknown", nil]
         end
