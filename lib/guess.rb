@@ -18,7 +18,8 @@ module Guess
       elsif freq_female > freq_male
         ["female", 1 - p_male]
       else
-        if middle = People::NameParser.new.parse(name)[:middle]
+        middle = People::NameParser.new.parse(name)[:middle]
+        unless middle.empty?
           # try the middle name if the first one fails.
           Guess.gender(middle)
         else
