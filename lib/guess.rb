@@ -18,17 +18,19 @@ module Guess
       elsif freq_female > freq_male
         ["female", 1 - p_male]
       else
-        middle = People::NameParser.new.parse(name)[:middle]
+        ["unknown", nil]
+      end
+      if gender == 'unknown'
+        @@np ||= People::NameParser.new
+        middle = @@np.parse(name)[:middle]
         unless middle.empty?
           # try the middle name if the first one fails.
           return Guess.gender(middle)
-        else
-          ["unknown", nil]
         end
       end
       {:gender => gender, :confidence => confidence}
     end
-
+  
     def parse_file(name)
       dist = Hash.new(0.0005)
       File.open("#{gem_root}/lib/guess/#{name}.txt", "r").each_line do |line|
