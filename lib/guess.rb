@@ -27,8 +27,6 @@ module Guess
       end
       {:gender => gender, :confidence => confidence}
     end
-  end
-end
 
     def parse_file(name)
       dist = Hash.new(0.0005)
